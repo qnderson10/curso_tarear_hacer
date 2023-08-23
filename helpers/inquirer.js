@@ -13,8 +13,7 @@
  * el entorno a ESM
  * Configuramos la estructura de las preguntas de la lista a mostrar
  * Creamos la funcion pausa para la verificacion de la opcion elegida 
- * en la lista 
- * 
+ * en la lista
  * 
  */
 
