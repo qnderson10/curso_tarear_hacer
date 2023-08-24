@@ -14,6 +14,8 @@
  * Configuramos la estructura de las preguntas de la lista a mostrar
  * Creamos la funcion pausa para la verificacion de la opcion elegida 
  * en la lista
+ * Se creo la funcion leerInput para leer las tareas que se ingresen 
+ * 
  * 
  */
 
@@ -24,7 +26,7 @@ const preguntas = [
     {
         type: 'list',
         name: 'opcion',
-        message: 'Que desea hacer?',
+        message: 'Que desea hacer?'.red,
         choices: [
             {
                 value: 1,
@@ -83,7 +85,27 @@ const pausa = async() => {
     return enter;
 }
 
+const leerInput = async(message) => {
+    const question = [
+        {
+            type: 'input',
+            name: 'desc',
+            message,
+            validate(value) {
+                if (value.length === 0) {
+                    return 'Por favor ingrese un valor';
+                }
+                return true;
+            }
+        }
+    ];
+ 
+    const {desc} = await inquirer.prompt(question);
+    return desc;
+}
+
 module.exports = {
     inquirerMenu,
-    pausa
+    pausa,
+    leerInput
 }

@@ -9,20 +9,55 @@
  * Ahora usaremos inquirer para crearla, usando su documentacion 
  * y poder usar completamenta la navegacion de opciones de forma mas 
  * facil y optimizada
+ * Se creara una carpeta llamada models donde se manejara
+ * la logica de las opciones del menu
+ * Se creo la lista de tareas con la clase Tareas y se agrego, luego se mostro
+ * en consola, teniendo esta estructura
+ * Tareas {
+ *       _listado: {
+ *           'f50b1924-5de8-42ee-b228-f84e425b49a2': Tarea {
+ *           id: 'f50b1924-5de8-42ee-b228-f84e425b49a2',
+ *           desc: 'Comprar comida',
+ *           completadoEn: null
+ *       }
+ *   }
+ *   }
+ * Se creo un switch para recibir las opciones elegidas en el menu
+ * correspondientes a las acciones que ejerce cada opcion
  * 
  */
 require('colors');
 
-const { inquirerMenu, pausa } = require('./helpers/inquirer');
+const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
+const Tareas = require('./models/tareas');
 // const { mostrarMenu, pausa } = require('./helpers/mensajes');
-
-console.clear();
 
 const main = async() => {
     let opt = '';
+    const tareas = new Tareas();
     
     do{
         opt = await inquirerMenu();
+        // console.log(opt);
+        switch (opt) {
+            case 1:
+                // Crear tarea
+                const desc = await leerInput('Descripcion:');
+                // console.log(desc);
+                tareas.crearTarea(desc);
+            break;
+            case 2:
+                //Listar tareas
+                console.log(tareas._listado);
+            break;
+            // case '':
+                
+            // break;
+        };
+        // const tareas = new Tareas();
+        // const tarea = new Tarea('Comprar comida');
+        // tareas._listado[tarea.id] = tarea;
+        // console.log(tareas);
 
         if(opt !== 0) await pausa();
     }while(opt !== 0);
