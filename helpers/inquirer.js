@@ -26,7 +26,7 @@ const preguntas = [
     {
         type: 'list',
         name: 'opcion',
-        message: 'Que desea hacer?'.red,
+        message: 'Que desea hacer?'.blue,
         choices: [
             {
                 value: 1,

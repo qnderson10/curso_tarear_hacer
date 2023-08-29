@@ -25,9 +25,15 @@
  * Se creo un switch para recibir las opciones elegidas en el menu
  * correspondientes a las acciones que ejerce cada opcion
  * 
+ * Se uso la funcion leerDB para verificar si existe el archivo con tareas
+ * Luego con un if si ya hay tareas existentes se carga el objeto tareas
+ * con las tareas del archivo
+ * Al final del switch se guardan los objetos que se agreguen 
+ * 
  */
 require('colors');
 
+const { guardarDB, leerDB } = require('./helpers/guardarArchivo');
 const { inquirerMenu, pausa, leerInput } = require('./helpers/inquirer');
 const Tareas = require('./models/tareas');
 // const { mostrarMenu, pausa } = require('./helpers/mensajes');
@@ -35,8 +41,15 @@ const Tareas = require('./models/tareas');
 const main = async() => {
     let opt = '';
     const tareas = new Tareas();
+
+    const tareasDB = leerDB();
+
+    if (tareasDB) {
+        tareas.cargarTareasFromArray(tareasDB);
+    }
     
     do{
+        // Imprimir el menu
         opt = await inquirerMenu();
         // console.log(opt);
         switch (opt) {
@@ -48,12 +61,12 @@ const main = async() => {
             break;
             case 2:
                 //Listar tareas
-                console.log(tareas._listado);
+                tareas.listadoCompleto();
             break;
-            // case '':
-                
-            // break;
         };
+
+        guardarDB(tareas.listadoArr);
+        
         // const tareas = new Tareas();
         // const tarea = new Tarea('Comprar comida');
         // tareas._listado[tarea.id] = tarea;
