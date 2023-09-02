@@ -32,8 +32,9 @@
  * Se crearon las opciones de listar tareas completadas y pendientes
  * Se creo la opcion de borrar tareas la cual tambien se mostrara a elegir como
  * un menu interactivo
- * 
- * 
+ * Se creo la opcion de completar tareas usando un nuevo prompt de inquirer
+ * el cual nos permite marcar y desmarcar tareas, que asi como al marcar se completan
+ * guardando el momento o fecha en que se completo, si se desmarcan quedan en su estado pendiente de nuevo, 
  */
 require('colors');
 
