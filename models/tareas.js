@@ -91,13 +91,28 @@ class Tareas {
             if (completadas) {
                 if (completadoEn) {
                     idx += 1;
-                    console.log(`${idx.toString().green + '.'.green} ${desc} :: ${completadoEn}`);
+                    console.log(`${idx.toString().green + '.'.green} ${desc} :: ${completadoEn.green}`);
                 }
             } else {
                 if (!completadoEn) {
                     idx += 1;
-                    console.log(`${idx.toString().green + '.'.green} ${desc} :: ${completadoEn}`);
+                    console.log(`${idx.toString().green + '.'.green} ${desc} :: ${estado}`);
                 }
+            }
+        });
+    }
+
+    toggleCompletadas(ids = []){
+        ids.forEach(id => {
+            const tarea = this._listado[id];
+            if (!tarea.completadoEn) {
+                tarea.completadoEn = new Date().toISOString();
+            }
+        });
+
+        this.listadoArr.forEach(tarea => {
+            if (!ids.includes(tarea.id)) {
+                this._listado[tarea.id].completadoEn = null;
             }
         });
     }
