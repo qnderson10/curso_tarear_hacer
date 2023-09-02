@@ -31,6 +31,13 @@ class Tareas {
         this._listado = {};
     }
 
+    // Funcion para borrar una tarea
+    borrarTarea(id = 0){
+        if (this._listado[id]) {
+            delete this._listado[id];
+        }
+    }
+
     // Con esta funcion se tiene el arreglo y se transforma de nuevo a objeto
     cargarTareasFromArray(tareas = []) {
         tareas.forEach(tarea => {
@@ -72,6 +79,28 @@ class Tareas {
         });
     }
 
+    // Funcion que me mostrara las tareas completadas o pendientes
+    // dependiendo del parametro
+    listarPendientesCompletadas(completadas = true){
+        let idx = 0;
+        this.listadoArr.forEach((tarea) => {    
+            const {desc, completadoEn} = tarea;
+            const estado = (completadoEn)
+                            ? 'Completada'.green
+                            : 'Pendiente'.red
+            if (completadas) {
+                if (completadoEn) {
+                    idx += 1;
+                    console.log(`${idx.toString().green + '.'.green} ${desc} :: ${completadoEn}`);
+                }
+            } else {
+                if (!completadoEn) {
+                    idx += 1;
+                    console.log(`${idx.toString().green + '.'.green} ${desc} :: ${completadoEn}`);
+                }
+            }
+        });
+    }
 }
 
 module.exports = Tareas;
